@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>View Job</title>
+
+<style>
+.jumbotron{
+    background-color: #2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs{
+    margin-bottom: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="page-header">
+    
+    <h1>{{ user.first_name }} {{ user.last_name }}'s Quotes:</h1>
+    <p><a href="/dashboard"> Back </a> | <a href="/logout"> Logout </a></p>
+
+</div>
+
+<div class="jumbotron">
+
+<div class="quotes">
+            {% for quote in quotes%}
+            <div class>
+                <h4>{{ quote.author }}: "{{ quote.content }}"</h4>
+
+            </div>
+
+            {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

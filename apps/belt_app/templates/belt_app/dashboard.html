@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>The Wall</title>
+
+<style>
+.jumbotron{
+    background-color: #2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs{
+    margin-bottom: 0;
+}
+#text{
+    color: black;
+}
+.buttonright {
+    text-align: right;
+}
+.page-header{
+    display: inline-block;
+    vertical-align: top;
+    /* vertical-align: top; */
+}
+
+.header-right{
+    display: inline-block;
+    text-align: right;
+}
+
+.create-view {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+}
+
+.messages-view {
+    display: inline-block;
+    vertical-align: top;
+    width: 45%;
+}
+.logout{
+    text-align: right;
+}
+.container{
+    display:inline-block;
+    vertical-align: top;
+}
+.like{
+    color: black;
+}
+.logout{
+    color: white;
+}
+.h2{
+    color:black;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+
+    <div class ="header-left"><h1> Welcome Back {{user.first_name}}!</h1></div>
+    
+    <div class="logout"><a href="/myaccount/{{user.id}}">Edit My Account   </a><a class="logout" href="/logout"><button type="button" class="btn btn-primary">Logout</a></div>
+
+
+</div>
+
+
+<div class="jumbotron messages-view">
+    <h2>Quotes:</h2></br>
+    <tbody>
+    {% for quote in quotes %}
+            <p>{{ quote.author }}: "{{ quote.content }}"</p>
+            <p>Posted By:<a href="/user/{{quote.uploader_id}}"> {{ quote.uploader.first_name }} {{ quote.uploader.last_name }}</p></a></br>
+            <div class="like-box">
+                <p>{{ quote.likes.count }} Likes</p>
+                <form class="like" action='/like' method='POST'>
+                {% csrf_token %}
+                    <input type="hidden" name="user_id" value='{{user.id}}'>
+                    <input type="hidden" name="quote_id" value="{{quote.id}}">
+                    <input type='submit' value='Like'>
+                </form></br>
+        {% if request.session.user_id == quote.uploader.id %}
+           </br><a href='{{quote.id}}/delete'>Delete </a>
+        {% endif %}
+
+            </div>
+    {% endfor %}
+    </tbody>
+
+</div>
+</div>
+
+
+
+
+<div class="jumbotron create-view">
+
+    <h2>Add A Quote:</h2></br>
+    <table class="table table-hover">
+        <form action='/add_quote' method='POST'>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Author:</label>
+                <input type="text" name="author" class="form-control">
+            </div>
+        
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Quote:</label>
+                <textarea class="form-control" name="content" rows="3"></textarea>
+            </div>
+        
+            <br><input type="submit" value="Add" class="btn btn-sm btn-primary">
+        </form>
+        
+</div>
+
+<div class = 'messages'>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %} 
+    </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Edit Job</title>
+
+<style>
+.jumbotron{
+    background-color: #2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content{
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs{
+    margin-bottom: 0;
+}
+#text{
+    color: black;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="page-header">
+    <h1>Edit My Account</h1>
+    <p><a href="/dashboard"> Back </a> | <a href="/logout"> Logout </a></p>
+</div>
+
+<div class="jumbotron">
+
+    <form action='/update' method='POST'>
+        {% csrf_token %}
+
+        First Name: <br><p id = "text"><input type="text" name="first_name" placeholder="{{user.first_name}}"></p><br>
+
+        Last Name: <br><p id = "text"><input type="text" name="last_name" placeholder="{{user.last_name}}"></p><br>
+
+        Email: <br><p id = "text"><input type="text" name="email" placeholder="{{user.email}}"></p><br>
+
+        <br><input type="submit" value="Update" class="btn btn-sm btn-primary">
+        <input type="hidden" name="user_id" value="{{user.id}}">
+    </form>
+
+    <div class = 'messages'>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %} 
+    </div>
+</div>
+
+
+
+
+</div>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
